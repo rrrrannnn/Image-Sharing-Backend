@@ -25,7 +25,11 @@ jobs:
           distribution: 'microsoft'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean install -DskipTests
+        env:
+          AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -49,9 +53,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C13889DB0F4B4CE9B8C4BB5EED9703BC }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2D619E218EC04CA9A5AA1839AC508D5C }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FF4D87B2F7994CDCBBCF6443DADF8C80 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9DC8BB850E3E4780A2BD46A091B7DFDB }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_023E5BC2CA3F4143BA6CE70B27617A1E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A1ECC4882C4B48B1991AB7BE50FBFCBA }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
