@@ -19,12 +19,11 @@ public interface UserService {
     /**
      * 用户注册
      * @param userAccount
-     * @param userName
      * @param userPassword
      * @param checkPassword
      * @return
      */
-    String userRegister(String userAccount, String userName, String userPassword, String checkPassword);
+    String userRegister(String userAccount, String userPassword, String checkPassword);
 
     /**
      * 用户登录

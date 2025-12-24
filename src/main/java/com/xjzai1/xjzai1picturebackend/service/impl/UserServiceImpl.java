@@ -45,15 +45,11 @@ public class UserServiceImpl implements UserService, UserConstant {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public String userRegister(String userAccount, String userName, String userPassword, String checkPassword) {
+    public String userRegister(String userAccount, String userPassword, String checkPassword) {
         // 1. Validate params
         // cannot be blank
-        if(StrUtil.hasBlank(userAccount, userName, userPassword, checkPassword)){
+        if(StrUtil.hasBlank(userAccount, userPassword, checkPassword)){
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "Parameters are empty");
-        }
-        // username length
-        if(userName.length() > 20){
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "Username must not exceed 20 characters");
         }
         // account length
         if(userAccount.length() < 6 || userAccount.length() > 16){
@@ -78,7 +74,8 @@ public class UserServiceImpl implements UserService, UserConstant {
         User user = new User();
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
-        user.setUserName(userName);
+        // 使用账号名作为默认昵称
+        user.setUserName(userAccount);
         user.setUpdateTime(new Date());
         user.setCreateTime(new Date());
         user.setUserAvatar("https://xjzai1.blob.core.windows.net/pictureshare/public/6948161fbbb958089bc881c4/2025-12-23_mMJXPQyhvZiGKVZJ.jpg");

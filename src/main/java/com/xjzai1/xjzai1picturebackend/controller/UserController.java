@@ -25,10 +25,9 @@ public class UserController {
     public BaseResponse<String> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
         ThrowUtils.throwIf(userRegisterRequest == null, ErrorCode.PARAMS_ERROR);
         String userAccount = userRegisterRequest.getUserAccount();
-        String userName = userRegisterRequest.getUserName();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
-        String userId = userService.userRegister(userAccount, userName, userPassword, checkPassword);
+        String userId = userService.userRegister(userAccount, userPassword, checkPassword);
         return ResultUtils.success(userId);
     }
 
